@@ -44,7 +44,16 @@ Route::middleware([ 'auth:sanctum','verified','member', config('jetstream.auth_s
 | Profile Setting
 |--------------------------------------------------------------------------
 */
-Route::get('/information/show', [ProfileController::class, 'profile'])->name('profile.show');
+//--Employee List
+// Route::get('info_member/list', [ProfileController::class, 'employee_list'])->name('info_employee.list');
+Route::get('info_member/details/{id}', [ProfileController::class, 'member_details'])->name('info_member.details');
+Route::get('info_member/edit/{id}', [ProfileController::class, 'member_edit'])->name('info_member.edit');
+Route::post('info_member/update/{id}', [ProfileController::class, 'employee_update'])->name('info_employee.update');
+Route::post('/change-password/{id}', [ProfileController::class, 'profileUpdate'])->name('change.password');
+
+
+
+Route::get('/information/show/{id}', [ProfileController::class, 'profile'])->name('profile.show');
 Route::put('/information/{user}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/password/{user}', [ProfileController::class, 'password'])->name('profile.password');
 Route::get('/information/edit', [ProfileController::class, 'information_edit'])->name('information.edit');
@@ -53,9 +62,7 @@ Route::put('/info_other/update/{id}', [ProfileController::class, 'info_other_upd
 
 Route::get('/about', function (){return view('frontend.pages.about');})->name('page.about');
 Route::get('/contact/show', function (){return view('frontend.pages.contact');})->name('page.contact');
-
 Route::get('/member/lose', function (){return view('frontend.pages.member_lose');})->name('page.member_lose');
-
 Route::get('/gallery/video', function (){return view('frontend.pages.gallery_video');})->name('page.gallery_video');
 
 

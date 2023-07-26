@@ -11,9 +11,45 @@ use Auth;
 
 class ProfileController extends Controller
 {
-    public function profile()
+
+
+    function member_details($id){
+        $user = User::findOrFail($id);
+        $infoPersonal = $user->infoPersonal;
+        $infoFamily = $user->infoFamily;
+        $infoAcademic = $user->infoAcademic;
+        $infoOther = $user->infoOther;
+
+        return view('profile.show', compact('user','infoPersonal','infoFamily','infoAcademic','infoOther'));
+    }
+    function member_edit($id){
+        $user = User::findOrFail($id);
+        $infoPersonal = $user->infoPersonal;
+        $infoFamily = $user->infoFamily;
+        $infoAcademic = $user->infoAcademic;
+        $infoOther = $user->infoOther;
+
+        return view('profile.edit', compact('user','infoPersonal','infoFamily','infoAcademic','infoOther'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function profile($id)
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = User::findOrFail($id);
         $infoPersonal = $user->infoPersonal;
         $infoFamily = $user->infoFamily;
         $infoAcademic = $user->infoAcademic;

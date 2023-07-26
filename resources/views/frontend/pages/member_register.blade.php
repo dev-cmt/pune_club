@@ -148,7 +148,7 @@
                     <div class="row g-5">
                         <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
                             <div class="row g-3">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Your Full Name</label>
                                     <input type="text" name="name" placeholder="" value="{{Auth::user()->name}}" class="@error('name') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('name')
@@ -156,8 +156,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Designation</label>
                                     <input type="text" name="designation" placeholder="" value="{{old('designation')}}" class="@error('designation') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('designation')
@@ -165,8 +165,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Date Of Birth</label>
                                     <input type="date" name="dob" placeholder="" value="{{old('dob')}}" class="@error('dob') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('dob')
@@ -174,8 +174,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Your Address</label>
                                     <input type="text" name="address" placeholder="" value="{{old('address')}}" class="@error('address') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('address')
@@ -183,8 +183,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Marrital Status</label>
                                     <select id="divId" onchange="marritalStatus()" name="marrital_status" value="{{old('marrital_status')}}" class="@error('degree') is-invalid @enderror form-select border-0 bg-light px-4" style="height: 40px;">
                                         <option value="0" selected>Unmarried</option>
@@ -197,7 +197,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div id="divspouse" style="display:none">
                                     <div class="col-12 mb-4">
                                         <label for="" class="from-label">Spouse Name</label>
@@ -224,7 +224,7 @@
                         <!--Right-->
                         <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
                             <div class="row g-3">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Email</label>
                                     <input type="email" name="email" placeholder="" value="{{Auth::user()->email}}" class="@error('email') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;" disabled>
                                     @error('email')
@@ -232,8 +232,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Company Name</label>
                                     <input type="text" name="company_name" placeholder="" value="{{old('company_name')}}" class="@error('company_name') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('company_name')
@@ -241,8 +241,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Gender</label>
                                     <select type="text" name="gender" placeholder="" value="{{old('gender')}}" class="@error('gender') is-invalid @enderror form-select border-0 bg-light px-4" style="height: 40px;">
                                         <option value="0" {{ old('gender') == '0' ? 'selected' : '' }}>Male</option>
@@ -253,8 +253,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">City</label>
                                     <input type="text" name="city" placeholder="" value="{{old('city')}}" class="@error('city') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('city')
@@ -262,8 +262,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Contact Number</label>
                                     <input type="number" name="contact_number" placeholder="" value="{{Auth::user()->contact_number}}" class="@error('contact_number') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('contact_number')
@@ -271,7 +271,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-12" id="divspouse_birth"  style="display:none">
                                     <label for="" class="from-label">Spouse DOB</label>
                                     <input type="date" name="birth_day" placeholder="" value="{{old('birth_day')}}" class="@error('birth_day') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
@@ -327,7 +327,7 @@
                     <div class="row g-5">
                         <div class="col-lg-6">
                             <div class="row g-3">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">College Name</label>
                                     <input type="text" name="collage" placeholder="" value="{{old('collage')}}" class="@error('collage') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('collage')
@@ -335,8 +335,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Passing Year</label>
                                     <input type="number" name="passing_year" placeholder="" value="{{old('passing_year')}}" class="@error('passing_year') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('passing_year')
@@ -344,7 +344,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-12">
                                     <label for="" class="from-label">Degree</label>
                                     <select name="degree" placeholder="" class="@error('degree') is-invalid @enderror form-select border-0 bg-light px-4" style="height: 40px;">
@@ -369,7 +369,7 @@
                         <!--Right-->
                         <div class="col-lg-6">
                             <div class="row g-3">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Batch No.</label>
                                     <input type="number" name="batch" placeholder="" value="{{Auth::user()->batch}}" class="@error('batch') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('batch')
@@ -377,8 +377,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                     <label for="" class="from-label">Subject</label>
                                     <input type="text" name="subject" placeholder="" value="{{old('subject')}}" class="@error('subject') is-invalid @enderror form-control border-0 bg-light px-4" style="height: 40px;">
                                     @error('subject')
@@ -386,7 +386,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
