@@ -12,7 +12,7 @@
                         @if (session()->has('success'))
                             <strong class="text-success">{{session()->get('success')}}</strong>
                         @endif
-                        <form action="{{ route('info_employee.update',  1 ) }}" method="POST" enctype="multipart/form-data">
+                        <form class="form-valide" data-action="{{ route('info_member.update', $user->id) }}" method="POST" enctype="multipart/form-data" id="add-user-form">
                             @csrf
                             <!-- Step 1 input fields {Personal Information}-->
                             <div class="accordion__item">
@@ -26,7 +26,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Your Full Name</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="" value="{{$user->name}}{{$user->name}}"/>
                                                     @error('name')
                                                     <span class="invalid-feedback" role="alert">
@@ -39,7 +39,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Email</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="" value="{{$user->email}}"/>
                                                     @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Company Name</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="" value="{{$infoOther->company_name}}"/>
                                                     @error('company_name')
                                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@
                                                 <label class="col-lg-4 col-form-label">Designation
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="designation" id="designation" class="form-control @error('designation') is-invalid @enderror" placeholder="" value="{{$infoOther->designation}}"/>
                                                     @error('designation')
                                                     <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@
                                                 <label class="col-lg-4 col-form-label">Date Of Birth
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="date" name="dob" id="dob" class="form-control @error('dob') is-invalid @enderror" placeholder="" value="{{$infoPersonal->dob}}"/>
                                                     @error('dob')
                                                     <span class="invalid-feedback" role="alert">
@@ -97,7 +97,7 @@
                                                 <label class="col-lg-4 col-form-label">Gender
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <select name="gender" class="form-control default-select @error('gender') is-invalid @enderror">
                                                         <option value="0" {{ $infoPersonal->gender == '0' ? 'selected' : '' }}>Male</option>
                                                         <option value="1" {{ $infoPersonal->gender == '1' ? 'selected' : '' }}>Female</option>
@@ -116,7 +116,7 @@
                                                 <label class="col-lg-4 col-form-label">Your Address
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" placeholder="" value="{{$infoPersonal->address}}"/>
                                                     @error('address')
                                                     <span class="invalid-feedback" role="alert">
@@ -131,7 +131,7 @@
                                                 <label class="col-lg-4 col-form-label">City
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" placeholder="" value="{{$infoPersonal->city}}"/>
                                                     @error('city')
                                                     <span class="invalid-feedback" role="alert">
@@ -146,7 +146,7 @@
                                                 <label class="col-lg-4 col-form-label">Marrital Status
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <select name="marrital_status" class="form-control default-select @error('marrital_status') is-invalid @enderror">
                                                         <option value="0" {{ $infoPersonal->marrital_status == '0' ? 'selected' : '' }}>Unmarried</option>
                                                         <option value="1" {{ $infoPersonal->marrital_status == '1' ? 'selected' : '' }}>Married</option>
@@ -166,7 +166,7 @@
                                                 <label class="col-lg-4 col-form-label">Contact Number
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="contact_number" id="contact_number" class="form-control @error('contact_number') is-invalid @enderror" placeholder="" value="{{$user->contact_number}}"/>
                                                     @error('contact_number')
                                                     <span class="invalid-feedback" role="alert">
@@ -181,7 +181,7 @@
                                                 <label class="col-lg-4 col-form-label">Spouse Name
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="spouse" id="spouse" class="form-control @error('spouse') is-invalid @enderror" placeholder="" value="{{$infoPersonal->spouse}}"/>
                                                     @error('spouse')
                                                     <span class="invalid-feedback" role="alert">
@@ -196,7 +196,7 @@
                                                 <label class="col-lg-4 col-form-label">Number Of Child
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="text" name="number_child" id="number_child" class="form-control @error('number_child') is-invalid @enderror" placeholder="" value="{{$infoPersonal->number_child}}"/>
                                                     @error('number_child')
                                                     <span class="invalid-feedback" role="alert">
@@ -211,7 +211,7 @@
                                                 <label class="col-lg-4 col-form-label">Spouse DOB
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="date" name="birth_day" id="birth_day" class="form-control @error('birth_day') is-invalid @enderror" placeholder="" value="{{$infoPersonal->birth_day}}"/>
                                                     @error('birth_day')
                                                     <span class="invalid-feedback" role="alert">
@@ -221,6 +221,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -262,6 +270,16 @@
                                             </div>
                                         </div>
                                         @endforeach
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                     </div>
                                 </div>
@@ -278,7 +296,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">College Name</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="test" name="collage" id="collage" class="form-control @error('collage') is-invalid @enderror" placeholder="" value="{{$infoAcademic->collage}}"/>
                                                     @error('collage')
                                                     <span class="invalid-feedback" role="alert">
@@ -291,7 +309,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Batch No.</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="test" name="batch" id="batch" class="form-control @error('batch') is-invalid @enderror" placeholder="" value="{{$user->batch}}"/>
                                                     @error('batch')
                                                     <span class="invalid-feedback" role="alert">
@@ -304,7 +322,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Passing Year</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="test" name="passing_year" id="passing_year" class="form-control @error('passing_year') is-invalid @enderror" placeholder="" value="{{$infoAcademic->passing_year}}"/>
                                                     @error('passing_year')
                                                     <span class="invalid-feedback" role="alert">
@@ -317,7 +335,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Subject</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <input type="test" name="subject" id="subject" class="form-control @error('subject') is-invalid @enderror" placeholder="" value="{{$infoAcademic->subject}}"/>
                                                     @error('subject')
                                                     <span class="invalid-feedback" role="alert">
@@ -330,7 +348,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label">Degree</label>
-                                                <div class="col-lg-7">
+                                                <div class="col-lg-8">
                                                     <select name="degree" class="@error('degree') is-invalid @enderror form-control default-select">
                                                         <option value="0" {{ $infoAcademic->degree == 0 ? 'selected' : '' }}>--- Select ---</option>
                                                         <option value="1" {{ $infoAcademic->degree == 1 ? 'selected' : '' }}>12th Standard</option>
@@ -346,6 +364,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +384,117 @@
                                 </div>
                                 <div id="rounded-stylish_collapseFour" class="accordion__body collapse {{ Session::has('messege') ? 'show' :''}}" data-parent="#accordion-eleven" style="">
                                     <div class="row pb-0 accordion__body--text">
-                                    
+                                        <div class="col-lg-12">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">About Me</label>
+                                                <div class="col-lg-10">
+                                                    <textarea name="about_me" class="form-control @error('about_me') is-invalid @enderror" rows="2" id="comment" placeholder="What would you like to see?">{{$infoOther->about_me}}</textarea>
+                                                    @error('about_me')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label">Facebook Link</label>
+                                                <div class="col-lg-8">
+                                                    <div class="input-group mb-3  input-success">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-facebook"></i></span>
+                                                        </div>
+                                                        <input type="text" name="facebook_url" class="form-control @error('facebook_url') is-invalid @enderror" placeholder="https://www.facebook.com" value="{{$infoOther->facebook_url}}">
+                                                        @error('facebook_url')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label">Youtube Link</label>
+                                                <div class="col-lg-8">
+                                                    <div class="input-group mb-3  input-success">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-youtube"></i></span>
+                                                        </div>
+                                                        <input type="text" name="youtube_url" class="form-control @error('facebook_url') is-invalid @enderror" placeholder="https://www.youtube.com" value="{{$infoOther->youtube_url}}">
+                                                        @error('youtube_url')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label">Twitter Link</label>
+                                                <div class="col-lg-8">
+                                                    <div class="input-group mb-3  input-success">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-twitter"></i></span>
+                                                        </div>
+                                                        <input type="text" name="twitter_url" class="form-control @error('twitter_url') is-invalid @enderror" placeholder="https://twitter.com" value="{{$infoOther->twitter_url}}">
+                                                        @error('twitter_url')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label">Instagram Link</label>
+                                                <div class="col-lg-8">
+                                                    <div class="input-group mb-3  input-success">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-instagram"></i></span>
+                                                        </div>
+                                                        <input type="text" name="instagram_url" class="form-control @error('instagram_url') is-invalid @enderror" placeholder="https://www.instagram.com" value="{{$infoOther->instagram_url}}">
+                                                        @error('instagram_url')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label">Linkedin Link</label>
+                                                <div class="col-lg-8">
+                                                    <div class="input-group mb-3  input-success">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-linkedin"></i></span>
+                                                        </div>
+                                                        <input type="text" name="linkedin_url" class="form-control @error('linkedin_url') is-invalid @enderror" placeholder="https://www.linkedin.com" value="{{$infoOther->linkedin_url}}">
+                                                        @error('linkedin_url')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -484,69 +620,6 @@
             $.ajaxSetup({
                 headers:{
                     'x-csrf-token' : $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        });
-        $("body").on('click','#delete_todo',function(){
-            var id = $(this).data('id');
-            $.ajax({
-                url: "{{ url('info_related/education/destroy')}}" + '/' + id,
-                method: 'DELETE',
-                type: 'DELETE',
-                success: function(response) {
-                    toastr.success("Record deleted successfully!");
-                    $("#row_todo_" + id).remove();
-                    $("#educational").load(" #educational");
-                },
-                error: function(response) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
-        $("body").on('click','#delete_experience',function(){
-            var id = $(this).data('id');
-            $.ajax({
-                url: "{{ url('info_related/experience/destroy')}}" + '/' + id,
-                method: 'DELETE',
-                type: 'DELETE',
-                success: function (response) {
-                    toastr.success("Record deleted successfully!");
-                    $("#row_todo_" + id).remove();
-                    $("#work_experience").load(" #work_experience");
-                },
-                error: function (response) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
-        $("body").on('click','#delete_info_bank',function(){
-            var id = $(this).data('id');
-            $.ajax({
-                url: "{{ url('info_related/info_bank/destroy')}}" + '/' + id,
-                method: 'DELETE',
-                type: 'DELETE',
-                success: function (response) {
-                    toastr.success("Record deleted successfully!");
-                    $("#row_info_bank_" + id).remove();
-                    $("#info_bank").load(" #info_bank");
-                },
-                error: function (response) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
                 }
             });
         });

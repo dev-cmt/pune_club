@@ -1,13 +1,8 @@
 <x-guest-layout>
     <header>
-        <h5 style="color: #34ad54;margin-top: 15px;">Member Login</h5>
+        <h5 style="color: #34ad54; margin-top: 15px;">Member Login</h5>
     </header>
-    <x-jet-validation-errors class="mb-4" />
-    @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif
+    <x-jet-validation-errors style="color:red;margin-bottom:15px;"/>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="field">

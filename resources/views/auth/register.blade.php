@@ -3,8 +3,7 @@
         <h5 style="color: #34ad54;margin-top: 15px;">Member Register</h5>
     </header>
     <!-- Validation Errors -->
-    <x-jet-validation-errors class="mb-4" />
-
+    <x-jet-validation-errors style="color:red;margin-bottom:15px;"/>
     <form method="POST" action="{{ route('register') }}">
         @csrf
         <div class="field">

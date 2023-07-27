@@ -121,16 +121,10 @@
     <!-- Start Toaster & Sweetalert -->
     <script src="{{asset('public/backend')}}/vendor/toaster/js/toastr.min.js"></script>
     <script src="{{asset('public/backend')}}/vendor/toaster/js/sweetalert.min.js"></script>
-    
-        
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> --}}
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> --}}
-    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>             --}}
-    {{-- <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script> --}}
     <script src="{{asset('public/backend')}}/js/tabledit.min.js"></script>
 
     <script>
-        @if(Session::has('messege'))
+        @if(Session::has('messege') || Session::has('info_update') )
             var type="{{Session::get('alert-type','info')}}"
             switch(type){
                 case 'info':
@@ -144,6 +138,12 @@
                     break;
                 case 'error':
                     toastr.error("{{ Session::get('messege') }}");
+                    break;
+                case 'update':
+                    swal("Success Message Title", "Well done, you pressed a button", "success");
+                    break;
+                case 'fail':
+                    swal("Error!", "{{ Session::get('messege') }}", "error");
                     break;
             }
         @endif

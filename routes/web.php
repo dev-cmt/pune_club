@@ -44,20 +44,18 @@ Route::middleware([ 'auth:sanctum','verified','member', config('jetstream.auth_s
 | Profile Setting
 |--------------------------------------------------------------------------
 */
-//--Employee List
-// Route::get('info_member/list', [ProfileController::class, 'employee_list'])->name('info_employee.list');
-Route::get('info_member/details/{id}', [ProfileController::class, 'member_details'])->name('info_member.details');
+
+Route::get('member_prifile/details/{id}', [ProfileController::class, 'profile_show'])->name('profile_show');
+Route::put('member_prifile/other_info/{id}/update', [ProfileController::class, 'infoOtherUpdate'])->name('info_other.update');
+Route::post('member_prifile/change-password/{id}', [ProfileController::class, 'profileUpdate'])->name('change.password');
 Route::get('info_member/edit/{id}', [ProfileController::class, 'member_edit'])->name('info_member.edit');
-Route::post('info_member/update/{id}', [ProfileController::class, 'employee_update'])->name('info_employee.update');
-Route::post('/change-password/{id}', [ProfileController::class, 'profileUpdate'])->name('change.password');
+Route::post('info_member/update/{id}', [ProfileController::class, 'member_update'])->name('info_member.update');
 
 
 
-Route::get('/information/show/{id}', [ProfileController::class, 'profile'])->name('profile.show');
 Route::put('/information/{user}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/password/{user}', [ProfileController::class, 'password'])->name('profile.password');
 Route::get('/information/edit', [ProfileController::class, 'information_edit'])->name('information.edit');
-Route::put('/info_other/update/{id}', [ProfileController::class, 'info_other_update'])->name('info_other.update');
 
 
 Route::get('/about', function (){return view('frontend.pages.about');})->name('page.about');
@@ -65,19 +63,7 @@ Route::get('/contact/show', function (){return view('frontend.pages.contact');})
 Route::get('/member/lose', function (){return view('frontend.pages.member_lose');})->name('page.member_lose');
 Route::get('/gallery/video', function (){return view('frontend.pages.gallery_video');})->name('page.gallery_video');
 
-
-// Route::get('/about',[FrontViewController::class,'about'])->name('page.about');
-// Route::get('/contact',[FrontViewController::class,'contact'])->name('page.contact');
-// Route::get('/member/list',[FrontViewController::class,'member_list'])->name('page.member_list');
-// Route::get('/member/details',[FrontViewController::class,'member_details'])->name('page.member_details');
-// Route::get('/member/lose',[FrontViewController::class,'member_lose'])->name('page.member_lose');
-
-// Route::get('/gallery/video',[FrontViewController::class,'gallery_video'])->name('page.gallery_video');
-// Route::get('/events',[FrontViewController::class,'events'])->name('page.events');
-// Route::get('/events/details',[FrontViewController::class,'events_details'])->name('page.events_details');
-
 /*______________________ Gallery __________________*/
-
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('gallery', GalleryController::class);
     Route::delete('/destroy/{id}',[GalleryController::class,'destroy'])->name('gallery.destroy');
