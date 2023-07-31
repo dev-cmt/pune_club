@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Photo Album List</h4>
                     @can('Gallery create')
-                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i><span class="btn-icon-add"></span>Back</a>
+                    <a href="{{route('gallery.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i><span class="btn-icon-add"></span>Add New</a>
                     @endcan
                 </div>
 

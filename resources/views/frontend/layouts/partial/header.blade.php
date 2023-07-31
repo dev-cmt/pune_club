@@ -66,7 +66,7 @@
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}</button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             @if (Auth::user()->status)
-                                <li><a href="{{ Route('profile.show')}}" class="dropdown-item" type="button">Profile</a></li>
+                                <li><a href="{{ Route('profile_show', auth()->user()->id )}}" class="dropdown-item" type="button">Profile</a></li>
                             @endif
                             @if (Auth::user()->is_admin=="0" && Auth::user()->status=="0")
                                 <li><a href="{{ Route('member_register.create') }}" class="dropdown-item" type="button">Fill Up Information</a></li>
