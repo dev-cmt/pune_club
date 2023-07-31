@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('style')
     <!-- Gallery -->
-    <link href="{{asset('public/libs')}}/css/customs_gallery.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('public/libs')}}/css/customs_gallery.css">
     <link rel="stylesheet" href="{{asset('public/backend')}}/vendor/lightgallery/css/lightgallery.min.css">
 @endsection
 @section('content')
@@ -17,8 +17,8 @@
                     @foreach ($posts->images as $img)
                     <div class="col-lg-3 col-sm-6 mb-4 wow zoomIn" data-wow-delay="0.3s">
                         <div class="thumbnail-classic">
-                            <a class="thumbnail-classic-figure" data-lightgallery="item" href="{{asset('public')}}/images/{{ $img->image}}">
-                                <img src="{{asset('public')}}/images/{{ $img->image}}" alt="" width="480"/>
+                            <a class="thumbnail-classic-figure" data-lightgallery="item" href="{{asset('public/images/gallery')}}/img/{{ $img->image}}">
+                                <img src="{{asset('public/images/gallery')}}/img/{{ $img->image}}" alt="" width="480"/>
                             </a>
                             <div class="thumbnail-classic-caption">
                                 <h5 class="thumbnail-classic-title text-white">Pune Club</h5>

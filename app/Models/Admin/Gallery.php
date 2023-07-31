@@ -3,7 +3,8 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Admin\Image;
+use App\Models\Admin\Gallery;
+use App\Models\Admin\GalleryImages;
 use App\Models\User;
 class Gallery extends Model
 {
@@ -19,7 +20,7 @@ class Gallery extends Model
     ];
 
     public function images(){
-        return $this->hasMany(Image::class);
+        return $this->hasMany(GalleryImages::class);
     }
     public function user()
     {

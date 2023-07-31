@@ -47,9 +47,10 @@ Route::middleware([ 'auth:sanctum','verified','member', config('jetstream.auth_s
 
 Route::get('member_prifile/details/{id}', [ProfileController::class, 'profile_show'])->name('profile_show');
 Route::put('member_prifile/other_info/{id}/update', [ProfileController::class, 'infoOtherUpdate'])->name('info_other.update');
-Route::post('member_prifile/change-password/{id}', [ProfileController::class, 'profileUpdate'])->name('change.password');
+Route::post('member_prifile/change-password/{id}', [ProfileController::class, 'changePassword'])->name('change.password');
 Route::get('info_member/edit/{id}', [ProfileController::class, 'member_edit'])->name('info_member.edit');
 Route::post('info_member/update/{id}', [ProfileController::class, 'member_update'])->name('info_member.update');
+Route::delete('info_member/family_info/destroy/{id}', [ProfileController::class, 'info_family_destroy'])->name('info_family.destroy');
 
 
 

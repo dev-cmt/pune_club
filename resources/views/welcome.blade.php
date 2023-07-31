@@ -83,7 +83,7 @@
                         <h4 class="text-primary pt-2">{{$row->title}}</h4>
                     </div>
                     <div class="team-img position-relative overflow-hidden" style="height: 150px">
-                        <a href="{{route('page.gallery_show', $row ->id)}}"><img class="img-fluid w-100" height="100%" src="{{asset('public')}}/cover/{{ $row->cover }}" alt=""></a>
+                        <a href="{{route('page.gallery_show', $row ->id)}}"><img class="img-fluid w-100" height="100%" src="{{asset('public/images')}}/gallery/{{ $row->cover }}" alt=""></a>
                     </div>
                     <div class="p-4 row">
                         <div class="col-lg-5">

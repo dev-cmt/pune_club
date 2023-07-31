@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Photo Album List</h4>
                     @can('Gallery create')
-                    <a href="{{route('gallery.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i><span class="btn-icon-add"></span>Add New</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i><span class="btn-icon-add"></span>Back</a>
                     @endcan
                 </div>
 
@@ -25,7 +25,7 @@
                             <tbody>
                                 @foreach ($posts as $key=> $row )
                                 <tr>
-                                    <td class="sorting_1"><img class="rounded-circle" src="{{asset('public')}}/cover/{{ $row->cover }}" width="35" height="35" alt=""></td>
+                                    <td class="sorting_1"><img class="rounded-circle" src="{{asset('public/images/gallery')}}/{{ $row->cover }}" width="35" height="35" alt=""></td>
                                     <td>{{$row->title}}</td>
                                     <td>{{$row->description}}</td>
                                     <td>{{$row->date}}</td>

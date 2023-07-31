@@ -348,7 +348,7 @@
                                 <div class="col-12">
                                     <label for="" class="from-label">Degree</label>
                                     <select name="degree" placeholder="" class="@error('degree') is-invalid @enderror form-select border-0 bg-light px-4" style="height: 40px;">
-                                        <option value="0" selected>--- Select ---</option>
+                                        <option value="0" selected>--Select--</option>
                                         <option value="1" {{ old('degree') == '1' ? 'selected' : '' }}>12th Stander</option>
                                         <option value="2" {{ old('degree') == '2' ? 'selected' : '' }}>Graduation</option>
                                         <option value="3" {{ old('degree') == '3' ? 'selected' : '' }}>Masters</option>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Intervention\Image\Facades\Image;
 use App\Models\User;
+use App\Models\Admin\InfoFamily;
 use App\Models\Admin\InfoOther;
 
 class ProfileController extends Controller
@@ -51,7 +52,7 @@ class ProfileController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function profileUpdate(Request $request, $id)
+    public function changePassword(Request $request, $id)
     {
         //----------User Update
         $user = User::findorfail($id);
@@ -117,9 +118,6 @@ class ProfileController extends Controller
         }
     }
 
-
-
-
     /**________________________________________________________________________
      * Member Edit
      * ________________________________________________________________________
@@ -133,9 +131,92 @@ class ProfileController extends Controller
 
         return view('profile.edit', compact('user','infoPersonal','infoFamily','infoAcademic','infoOther'));
     }
+    function member_update(Request $request, $id){
+        //--User
+        $user = User::findOrFail($id);
+
+        //--Info Personal
+        $infoPersonal = $user->infoPersonal;
+        $infoPersonal->dob = $request->dob;
+        $infoPersonal->gender = $request->gender;
+        $infoPersonal->address = $request->address;
+        $infoPersonal->city = $request->city;
+        $infoPersonal->marrital_status = $request->marrital_status;
+        $infoPersonal->spouse = $request->spouse;
+        $infoPersonal->birth_day = $request->birth_day;
+        $infoPersonal->number_child = $request->number_child;
+        $infoPersonal->em_name = $request->em_name;
+        $infoPersonal->em_phone = $request->em_phone;
+        $infoPersonal->em_rleation = $request->em_rleation;
+        $infoPersonal->user_id = Auth::user()->id;
+        $infoPersonal->save();
 
 
+        //--Info Family
+        if($request->editFields){
+            foreach ($request->editFields as $value) {
+                $infoFamily = InfoFamily::findOrFail($value['id']);
+                $infoFamily->child_name= $value['child_name'];
+                $infoFamily->child_dob=$value['child_dob'];
+                $infoFamily->child_gender=$value['child_gender'];
+                $infoFamily->user_id=Auth::user()->id;
+                $infoFamily->save();
+            }
+        }
+        if($request->moreFields){
+            foreach ($request->moreFields as $value) {
+                // $infoFamily = $user->infoFamily;
+                $infoFamily = new InfoFamily();
+                $infoFamily->child_name = $value['child_name'];
+                $infoFamily->child_dob = $value['child_dob'];
+                $infoFamily->child_gender = $value['child_gender'];
+                $infoFamily->user_id = Auth::user()->id;
+                $infoFamily->save();
+            }    
+        }
+        //--Info Academic
+        $infoAcademic = $user->infoAcademic;
+        $infoAcademic->collage = $request->collage;
+        $infoAcademic->subject = $request->subject;
+        $infoAcademic->passing_year = $request->passing_year;
+        $infoAcademic->degree = $request->degree;
+        $infoAcademic->user_id = Auth::user()->id;
+        $infoAcademic->save();
 
+        //--Info Other
+        $infoOther = $user->infoOther;
+        $infoOther->about_me = $request->about_me;
+        $infoOther->nick_name = $request->nick_name;
+        $infoOther->phone_number = $request->phone_number;
+        $infoOther->designation = $request->designation;
+        $infoOther->company_name = $request->company_name;
+        $infoOther->cover_photo = $request->cover_photo;
+        $infoOther->favorite = $request->favorite;
+        $infoOther->facebook_url = $request->facebook_url;
+        $infoOther->youtube_url = $request->youtube_url;
+        $infoOther->instagram_url = $request->instagram_url;
+        $infoOther->twitter_url = $request->twitter_url;
+        $infoOther->linkedin_url = $request->linkedin_url;
+        $infoOther->whatsapp_url = $request->whatsapp_url;
+        $infoOther->telegram_url = $request->telegram_url;
+        $infoOther->snapchat_url = $request->snapchat_url;
+        $infoOther->tiktok_url = $request->tiktok_url;
+        $infoOther->wechat_url = $request->wechat_url;
+        $infoOther->discord_url = $request->discord_url;
+        $infoOther->user_id  = Auth::user()->id;
+        $infoOther->save();
+
+        // return response()->json(['infoOther' => $infoOther]);
+        $notification = array('messege' => 'Update successfully!', 'alert-type' => 'update');
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function info_family_destroy($id){
+        $data=InfoFamily::find($id);
+        $data->delete();
+        return response()->json('success');
+    }
 
 
 

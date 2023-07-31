@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Admin\Image;
-use App\Models\Admin\Gallery;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
-use Auth;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\Admin\Gallery;
+use App\Models\Admin\GalleryImages;
 
 class GalleryController extends Controller
 {
@@ -46,16 +47,32 @@ class GalleryController extends Controller
             'date'=> 'required',
         ]);
 
-        if($request->hasFile("cover")){
-            $file=$request->file("cover");
-            $imageName=time().'_'.$file->getClientOriginalName();
-            $file->move(\public_path("cover/"),$imageName);
+        if ($request->hasFile("cover")) {
+            //get filename with extension
+            $filenamewithextension = $request->file('cover')->getClientOriginalName();
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+            //get file extension
+            $extension = $request->file('cover')->getClientOriginalExtension();
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+            //Upload File
+            $request->file('cover')->move('public/images/gallery/', $filenametostore); //--Upload Location
+            // $request->file('profile_image')->storeAs('public/gallery', $filenametostore);
+            //Resize image here
+            $thumbnailpath = public_path('images/gallery/'.$filenametostore); //--Get File Location
+            // $thumbnailpath = public_path('storage/images/gallery/'.$filenametostore);
+            $img = Image::make($thumbnailpath)->resize(1200, 850, function($constraint) {
+                $constraint->aspectRatio();
+            }); 
+            $img->save($thumbnailpath);
 
+            //---Data Save
             $post =new Gallery([
                 "title" =>$request->title,
                 "description"=>$request->description,
                 "date"=>$request->date,
-                "cover" =>$imageName,
+                "cover" => $filenametostore,
                 "drive_url"=>$request->drive_url,
                 "public"=>$request->public,
                 "user_id"=>Auth::user()->id,
@@ -63,15 +80,31 @@ class GalleryController extends Controller
            $post->save();
         }
 
-
-        if($request->hasFile("images")){
-            $files=$request->file("images");
-            foreach($files as $file){
-                $imageName=time().'_'.$file->getClientOriginalName();
-                $request['gallery_id']=$post->id;
-                $request['image']=$imageName;
-                $file->move(\public_path("/images"),$imageName);
-                Image::create($request->all());
+        if ($request->hasFile("images")) {
+            $files = $request->file("images");
+            foreach ($files as $file) {
+                // Get filename with extension
+                $filenamewithextension = $file->getClientOriginalName();
+                // Get filename without extension
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+                // Get file extension
+                $extension = $file->getClientOriginalExtension();
+                // Filename to store
+                $filenametostore = $filename . '_' . time() . '.' . $extension;
+                // Upload File
+                $file->move('public/images/gallery/img/', $filenametostore); // Upload Location
+                // Resize image here
+                $thumbnailpath = public_path('images/gallery/img/' . $filenametostore); // Get File Location
+                $img = Image::make($thumbnailpath)->resize(1200, 850, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $img->save($thumbnailpath);
+        
+                // Save Data
+                $galleryImage = new GalleryImages();
+                $galleryImage->gallery_id = $post->id; // Assuming $post is defined and has the ID property set
+                $galleryImage->image = $filenametostore; // Save the filename in the 'image' field of the GalleryImages model
+                $galleryImage->save();
             }
         }
 
@@ -88,7 +121,7 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return view('layouts.pages.gallery.show')->with('posts',$gallery);
+        return view('layouts.pages.gallery.show')->with('posts', $gallery);
     }
 
     /**
@@ -110,40 +143,73 @@ class GalleryController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
-    {
-     $post=Gallery::findOrFail($id);
-     if($request->hasFile("cover")){
-         if (File::exists("cover/".$post->cover)) {
-             File::delete("cover/".$post->cover);
-         }
-         $file=$request->file("cover");
-         $post->cover=time()."_".$file->getClientOriginalName();
-         $file->move(\public_path("/cover"),$post->cover);
-         $request['cover']=$post->cover;
-     }
+    public function update(Request $request,$id){
+        $post=Gallery::findOrFail($id);
 
-    $post->update([
-        "title" =>$request->title,
-        "description"=>$request->description,
-        "date"=>$request->date,
-        "cover"=>$post->cover,
-        "drive_url"=>$request->drive_url,
-        "public"=>$request->public,
-        "user_id"=>Auth::user()->id,
-    ]);
+        if ($request->hasFile("cover")) {
+            if (File::exists("public/images/gallery/".$post->cover)) {
+                File::delete("public/images/gallery/".$post->cover);
+            }
+            //get filename with extension
+            $filenamewithextension = $request->file('cover')->getClientOriginalName();
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+            //get file extension
+            $extension = $request->file('cover')->getClientOriginalExtension();
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+            //Upload File
+            $request->file('cover')->move('public/images/gallery/', $filenametostore); //--Upload Location
+            // $request->file('profile_image')->storeAs('public/gallery', $filenametostore);
+            //Resize image here
+            $thumbnailpath = public_path('images/gallery/'.$filenametostore); //--Get File Location
+            // $thumbnailpath = public_path('storage/images/gallery/'.$filenametostore);
+            $img = Image::make($thumbnailpath)->resize(1200, 850, function($constraint) {
+                $constraint->aspectRatio();
+            }); 
+            $img->save($thumbnailpath);
 
-        if($request->hasFile("images")){
-            $files=$request->file("images");
-            foreach($files as $file){
-                $imageName=time().'_'.$file->getClientOriginalName();
-                $request["gallery_id"]=$id;
-                $request["image"]=$imageName;
-                $file->move(\public_path("images"),$imageName);
-                Image::create($request->all());
+            //---Data Save
+            $post->update([
+                "title" =>$request->title,
+                "description"=>$request->description,
+                "date"=>$request->date,
+                "cover"=> $filenametostore,
+                "drive_url"=>$request->drive_url,
+                "public"=>$request->public,
+                "user_id"=>Auth::user()->id,
+            ]);
+        }
 
+
+        if ($request->hasFile("images")) {
+            $files = $request->file("images");
+            foreach ($files as $file) {
+                // Get filename with extension
+                $filenamewithextension = $file->getClientOriginalName();
+                // Get filename without extension
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+                // Get file extension
+                $extension = $file->getClientOriginalExtension();
+                // Filename to store
+                $filenametostore = $filename . '_' . time() . '.' . $extension;
+                // Upload File
+                $file->move('public/images/gallery/img/', $filenametostore); // Upload Location
+                // Resize image here
+                $thumbnailpath = public_path('images/gallery/img/' . $filenametostore); // Get File Location
+                $img = Image::make($thumbnailpath)->resize(1200, 850, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $img->save($thumbnailpath);
+        
+                // Save Data
+                $galleryImage = new GalleryImages();
+                $galleryImage->gallery_id = $post->id; // Assuming $post is defined and has the ID property set
+                $galleryImage->image = $filenametostore; // Save the filename in the 'image' field of the GalleryImages model
+                $galleryImage->save();
             }
         }
+
 
         $notification=array('messege'=>'Gallery update successfully!','alert-type'=>'success');
         return redirect()->route('gallery.index')->with($notification);
@@ -156,40 +222,42 @@ class GalleryController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-         $posts=Gallery::findOrFail($id);
+    public function destroy($id){
+        $post=Gallery::findOrFail($id);
 
-         if (File::exists("cover/".$posts->cover)) {
-             File::delete("cover/".$posts->cover);
-         }
-         $images=Image::where("gallery_id",$posts->id)->get();
-         foreach($images as $image){
-         if (File::exists("images/".$image->image)) {
-            File::delete("images/".$image->image);
+        if (File::exists("public/images/gallery/".$post->cover)) {
+            File::delete("public/images/gallery/".$post->cover);
         }
-         }
-         $posts->delete();
-         return back();
+        $images=GalleryImages::where("gallery_id",$post->id)->get();
+        foreach($images as $image){
+            if (File::exists("public/images/gallery/img/".$image->image)) {
+                File::delete("public/images/gallery/img/".$image->image);
+            }
+        }
+        $post->delete();
+        return back();
     }
-
-    public function deleteimage($id){
-        $images=Image::findOrFail($id);
-        if (File::exists("images/".$images->image)) {
-           File::delete("images/".$images->image);
-       }
-
-       Image::find($id)->delete();
-       return back();
-   }
-
     public function deletecover($id){
-            $cover=Gallery::findOrFail($id)->cover;
-            if (File::exists("cover/".$cover)) {
-            File::delete("cover/".$cover);
+        $cover=Gallery::findOrFail($id)->cover;
+        if (File::exists("public/images/gallery/".$cover)) {
+            File::delete("public/images/gallery/".$cover);
         }
         return back();
     }
+    public function deleteimage($id){
+        $images=GalleryImages::findOrFail($id)->image;
+        if (File::exists("public/images/gallery/img/".$images)) {
+            File::delete("public/images/gallery/img/".$images);
+        }
+
+        GalleryImages::find($id)->delete();
+        return back();
+    }
+
+    /**________________________________________________________________________________
+     * 
+     * ________________________________________________________________________________
+     */
 
     public function fv_gallery_image()
     {
@@ -214,9 +282,9 @@ class GalleryController extends Controller
 
 
     function downloadFile($id){
-        $images=Image::findOrFail($id);
+        $images=GalleryImages::findOrFail($id);
 
-        $filepath = public_path("images/".$images->image);
+        $filepath = public_path("images/gallery/img".$images->image);
         return Response::download($filepath);
     }
     public function dowloads(){

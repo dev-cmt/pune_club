@@ -122,7 +122,7 @@
                     </form>
                     <div class="row">
                         <div class="col-xl-3">
-                            <img class="img-fluid" src="{{asset('public')}}/cover/{{ $posts->cover}}" style="width:100%; height:150px" alt="">
+                            <img class="img-fluid" src="{{asset('public/images/gallery')}}/{{ $posts->cover}}" style="width:100%; height:150px" alt="">
                         </div>
                     </div>
                     <br>
@@ -132,12 +132,12 @@
                     <div class="row">
                         @foreach ($posts->images as $img)
                             <div class="col-xl-3">
-                                <form action="{{route('gallery.deleteimage',$img->id)}}" method="post">
+                                <form action="{{route('gallery.deleteimage', $img->id)}}" method="post">
                                     <button class="btn text-danger">X</button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                <img class="img-fluid" src="{{asset('public')}}/images/{{ $img->image}}" style="width:100%; height:150px" alt="">
+                                <img class="img-fluid" src="{{asset('public/images/gallery')}}/img/{{ $img->image}}" style="width:100%; height:150px" alt="">
                                 <a href="{{route('gallery.download', $img ->id)}}" class="btn btn-primary btn-sm d-flex justify-content-center" style="border-radius:0;">Download</a>
                             </div>
                         @endforeach
