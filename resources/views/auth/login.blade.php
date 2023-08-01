@@ -2,7 +2,7 @@
     <header>
         <h5 style="color: #34ad54; margin-top: 15px;">Member Login</h5>
     </header>
-    <x-jet-validation-errors style="color:red;margin-bottom:15px;"/>
+    <x-jet-validation-errors style="color:red; margin-bottom:15px;"/>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="field">
@@ -15,7 +15,7 @@
             <span class="show">SHOW</span>
         </div>
         <div class="pass">
-            <a href="">Forgot Password?</a>
+            <a href="{{ route('password.request') }}">Forgot Password?</a>
         </div>
         <div class="field">
             <input type="submit" value="LOGIN">
